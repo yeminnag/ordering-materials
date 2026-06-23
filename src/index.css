@@ -1,14 +1,131 @@
 *,
 *::before,
-*::after { box-sizing: border-box; }
-
-:root {
-  font-family: 'Segoe UI', 'Hiragino Sans', 'Yu Gothic UI', sans-serif;
-  line-height: 1.5;
-  color: #1a1a2e;
-  background: #f4f6fb;
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-body { margin: 0; min-height: 100vh; }
-button, input, select { font: inherit; }
-button { cursor: pointer; }
+/* =============================================================================
+   Design tokens — change colors here to restyle the whole app
+   ============================================================================= */
+:root {
+  /* Brand / accent */
+  --color-primary: #6a7a03;
+  --color-primary-hover: #7d8f04;
+  --color-primary-active: #586702;
+  --color-primary-text: #ffffff;
+
+  /* Backgrounds */
+  --color-bg: #1d1d1e;
+  --color-bg-subtle: #1b1b1b;
+  --color-bg-elevated: #252526;
+  --color-bg-card: #2a2a2b;
+  --color-bg-input: #1b1b1b;
+  --color-bg-hover: #323234;
+
+  /* Text */
+  --color-text: #e2e8f0;
+  --color-text-muted: #64748b;
+  --color-text-subtle: #81858e;
+  --color-text-inverse: #1a1a2e;
+
+  /* Borders */
+  --color-border: #3a3a3c;
+  --color-border-subtle: #2e2e30;
+  --color-border-focus: var(--color-primary);
+
+  /* Status */
+  --color-error-bg: #3f1d1d;
+  --color-error-text: #fca5a5;
+  --color-success-bg: #1a3a2a;
+  --color-success-text: #86efac;
+
+  /* Badges */
+  --color-badge-bg: rgba(106, 122, 3, 0.2);
+  --color-badge-text: #c5d86d;
+  --color-badge-admin-bg: rgba(106, 122, 3, 0.25);
+  --color-badge-admin-text: #d9e870;
+
+  /* Typography */
+  --font-family: Arial, Helvetica, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-md: 15px;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.75rem;
+  --font-weight-normal: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  --line-height: 1.5;
+
+  /* Spacing */
+  --space-xs: 6px;
+  --space-sm: 10px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-full: 999px;
+
+  /* Layout */
+  --header-height: 72px;
+  --content-max-width: 1100px;
+  --auth-card-width: 420px;
+
+  /* Shadows */
+  --shadow-card: 0 10px 30px rgba(0, 0, 0, 0.25);
+}
+
+html {
+  font-family: var(--font-family);
+  line-height: var(--line-height);
+  color: var(--color-text);
+  background: var(--color-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  min-height: 100vh;
+  background: var(--color-bg);
+}
+
+#root {
+  min-height: 100vh;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+a {
+  color: var(--color-badge-text);
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+input::placeholder {
+  color: var(--color-text-subtle);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-border-focus);
+  outline-offset: 2px;
+}

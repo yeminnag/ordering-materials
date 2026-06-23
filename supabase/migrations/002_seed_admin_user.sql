@@ -9,7 +9,7 @@
 insert into public.profiles (id, full_name)
 values (
   'be1bf982-8c4c-4055-a845-3b9f702b45af',
-  '管理者'
+  'Admin'
 )
 on conflict (id) do update
 set full_name = excluded.full_name;
@@ -32,7 +32,7 @@ values (
 on conflict (store_id, user_id) do update
 set role = 'owner';
 
--- Check result (should show 1 row: owner + メイン店舗)
+-- Check result (should show 1 row: owner + YOMI STORE)
 select
   p.full_name,
   u.email,

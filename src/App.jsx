@@ -7,7 +7,7 @@ import './App.css'
 function ProtectedRoute({ children }) {
   const { session, loading } = useAuth()
 
-  if (loading) return <div className="loading-screen">読み込み中...</div>
+  if (loading) return <div className="loading-screen">Loading...</div>
   if (!session) return <Navigate to="/login" replace />
   return children
 }

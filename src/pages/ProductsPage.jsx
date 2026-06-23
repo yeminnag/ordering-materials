@@ -3,7 +3,7 @@ import { supabase } from '../lib/supabase'
 import { useStore } from '../hooks/useStore'
 import Layout from '../components/Layout'
 
-const UNITS = ['パック', '個', 'kg', '本', '袋', '箱']
+const UNITS = ['pack', 'piece', 'kg', 'bottle', 'bag', 'case']
 
 export default function ProductsPage() {
   const { store, loading: storeLoading, error: storeError } = useStore()
@@ -11,7 +11,7 @@ export default function ProductsPage() {
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
   const [error, setError] = useState('')
-  const [form, setForm] = useState({ name: '', unit: 'パック', target_stock: 10 })
+  const [form, setForm] = useState({ name: '', unit: 'pack', target_stock: 10 })
 
   async function loadProducts() {
     if (!store) return
@@ -51,20 +51,22 @@ export default function ProductsPage() {
 
     if (insertError) setError(insertError.message)
     else {
-      setForm({ name: '', unit: 'パック', target_stock: 10 })
+      setForm({ name: '', unit: 'pack', target_stock: 10 })
       await loadProducts()
     }
 
     setSubmitting(false)
   }
 
-  if (storeLoading) return <div className="loading-screen">読み込み中...</div>
+  if (storeLoading) return <div className="loading-screen">Loading...</div>
 
   if (storeError || !store) {
     return (
       <div className="loading-screen">
-        <p>店舗にアクセスできません。</p>
-        <p className="muted">{storeError ?? '管理者に store_members への追加を依頼してください。'}</p>
+        <p>Cannot access this store.</p>
+        <p className="muted">
+          {storeError ?? 'Ask an admin to add you to store_members.'}
+        </p>
       </div>
     )
   }
@@ -73,25 +75,25 @@ export default function ProductsPage() {
     <Layout store={store}>
       <div className="page-grid">
         <section className="page-card">
-          <h1>商品管理</h1>
+          <h1>Products</h1>
           <p className="page-lead">
-            発注する商品を登録します。目標在庫数は翌朝に用意したい数量です。
+            Register items to track and reorder. Target stock is how much you want on hand each morning.
           </p>
 
           <form className="form-stack form-stack--inline" onSubmit={handleSubmit}>
             <label className="field">
-              <span>商品名</span>
+              <span>Product name</span>
               <input
                 type="text"
                 value={form.name}
                 onChange={(e) => setForm({ ...form, name: e.target.value })}
-                placeholder="例：卵"
+                placeholder="e.g. Eggs"
                 required
               />
             </label>
 
             <label className="field">
-              <span>単位</span>
+              <span>Unit</span>
               <select value={form.unit} onChange={(e) => setForm({ ...form, unit: e.target.value })}>
                 {UNITS.map((unit) => (
                   <option key={unit} value={unit}>{unit}</option>
@@ -100,7 +102,7 @@ export default function ProductsPage() {
             </label>
 
             <label className="field">
-              <span>目標在庫数</span>
+              <span>Target stock</span>
               <input
                 type="number"
                 min="0"
@@ -111,7 +113,7 @@ export default function ProductsPage() {
             </label>
 
             <button type="submit" className="btn btn--primary" disabled={submitting}>
-              {submitting ? '追加中...' : '商品を追加'}
+              {submitting ? 'Adding...' : 'Add product'}
             </button>
           </form>
 
@@ -120,24 +122,24 @@ export default function ProductsPage() {
 
         <section className="page-card">
           <div className="section-heading">
-            <h2>登録済み商品</h2>
-            <span className="badge">{products.length} 件</span>
+            <h2>Registered products</h2>
+            <span className="badge">{products.length} items</span>
           </div>
 
           {loading ? (
-            <p className="muted">読み込み中...</p>
+            <p className="muted">Loading...</p>
           ) : products.length === 0 ? (
             <div className="empty-state">
-              <p>まだ商品がありません</p>
-              <p className="muted">最初の商品（例：卵）を追加してください。</p>
+              <p>No products yet</p>
+              <p className="muted">Add your first product (e.g. Eggs) using the form.</p>
             </div>
           ) : (
             <table className="data-table">
               <thead>
                 <tr>
-                  <th>商品名</th>
-                  <th>単位</th>
-                  <th>目標在庫</th>
+                  <th>Product</th>
+                  <th>Unit</th>
+                  <th>Target stock</th>
                 </tr>
               </thead>
               <tbody>

@@ -28,13 +28,14 @@ export default function LoginPage() {
   return (
     <div className="auth-page">
       <div className="auth-card">
-        <p className="auth-card__eyebrow">Ordering Materials</p>
-        <h1>発注管理システム</h1>
-        <p className="auth-card__subtitle">管理者アカウントでログイン</p>
+        <div className="auth-header">
+          <h1>Stock management system</h1>
+          <p className="auth-card__eyebrow">by team vibe</p>
+        </div>
 
         <form className="form-stack" onSubmit={handleSubmit}>
           <label className="field">
-            <span>メールアドレス</span>
+            <span>Email</span>
             <input
               type="email"
               value={email}
@@ -44,12 +45,12 @@ export default function LoginPage() {
           </label>
 
           <label className="field">
-            <span>パスワード</span>
+            <span>Password</span>
             <input
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="Supabaseで設定したパスワード"
+              placeholder="Password set in Supabase"
               required
             />
           </label>
@@ -57,7 +58,7 @@ export default function LoginPage() {
           {error && <p className="form-message form-message--error">{error}</p>}
 
           <button type="submit" className="btn btn--primary btn--full" disabled={submitting}>
-            {submitting ? 'ログイン中...' : 'ログイン'}
+            {submitting ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
       </div>

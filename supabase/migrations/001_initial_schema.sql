@@ -38,7 +38,7 @@ create trigger on_auth_user_created
   execute function public.handle_new_user();
 
 -- ---------------------------------------------------------------------------
--- Stores & members (owner = admin / 管理者)
+-- Stores & members (owner = admin)
 -- ---------------------------------------------------------------------------
 
 create table public.stores (
@@ -67,7 +67,7 @@ create table public.products (
   id uuid primary key default gen_random_uuid(),
   store_id uuid not null references public.stores (id) on delete cascade,
   name text not null,
-  unit text not null default '個',
+  unit text not null default 'piece',
   target_stock integer not null default 0 check (target_stock >= 0),
   min_stock integer check (min_stock is null or min_stock >= 0),
   is_active boolean not null default true,
@@ -141,7 +141,7 @@ create trigger on_sale_insert
   execute function public.sync_sold_quantity_on_sale();
 
 -- ---------------------------------------------------------------------------
--- Hacchuu (発注)
+-- Reorder (purchase) orders
 -- ---------------------------------------------------------------------------
 
 create table public.hacchuu_orders (
